@@ -1,4 +1,4 @@
-package bootcamp.springboot2.model.dto;
+package web.model.dto;
 
 import lombok.*;
 @Builder @Getter @Setter @ToString

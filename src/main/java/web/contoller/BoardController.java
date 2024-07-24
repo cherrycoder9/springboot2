@@ -1,4 +1,4 @@
-package bootcamp.springboot2.controller;
+package web.contoller;
 
 import bootcamp.springboot2.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;

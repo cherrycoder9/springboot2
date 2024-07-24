@@ -1,4 +1,4 @@
-package bootcamp.springboot2.model.dao;
+package web.model.dao;
 
 import org.springframework.stereotype.Component;
 

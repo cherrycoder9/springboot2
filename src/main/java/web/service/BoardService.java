@@ -1,4 +1,4 @@
-package bootcamp.springboot2.service;
+package web.service;
 
 import bootcamp.springboot2.model.dao.BoardDao;
 import org.springframework.beans.factory.annotation.Autowired;
