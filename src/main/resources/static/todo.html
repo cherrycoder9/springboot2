@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset='utf-8'>
+	<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+	<title>Page Title</title>
+	<meta content='width=device-width, initial-scale=1' name='viewport'>
+	<link href='todo.css' media='screen' rel='stylesheet' type='text/css'>
+	<!-- <meta http-equiv="Content-Security-Policy"
+		content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com;"> -->
+</head>
+
+<body>
+	<div id="wrapper">
+		<h2>My ToDo List</h2>
+		<div id="inputBox">
+			<label for="todoList"></label><input id="todoList" type="text" />
+			<button onclick="add()" type="button">등록</button>
+		</div>
+		<div id="tableBox">
+
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src='./todo.js'></script>
+</body>
+
+</html>

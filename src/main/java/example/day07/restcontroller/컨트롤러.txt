@@ -1,0 +1,41 @@
+스프링 컨트롤러
+    - 모든 클라이언트의 HTTP 요청/응답은 컨트롤러가 관리
+    - 컨트롤러 어노테이션: @Controller
+    - 스프링 컨트롤러 클래스를 만드는 방법
+        [1]
+        @Controller
+        public class 클래스명 {}
+
+스프링 컨트롤러의 HTTP 매핑(연결) 메소드
+    [1]
+        @RequestMapping(value="", method="")
+        public void 메소드명() {}
+
+        - value: 해당 메소드를 매핑할 HTTP 주소 정의(ip, port 생략)
+        - method: RequestMethod.XXX: XXX에 HTTP의 GET, POST, PUT, DELETE
+
+    [2] 각 매핑의 HTTP 메소드를 매핑해서 URL을 찾는다
+        @GetMapping("HTTP URL 주소 정의")
+        @PostMapping("HTTP URL 주소 정의")
+        @PutMapping("HTTP URL 주소 정의")
+        @DeleteMapping("HTTP URL 주소 정의")
+
+HTTP 데이터 () 받는 방법
+    쿼리스트링: URL?key=value&key2=value2&key3=value3
+        - url 뒤에 ? 부터 key(변수명) value(변수의값) & 변수구분
+    [1] HttpServletRequest
+        .getParameter("쿼리스트링매개변수key")
+
+HTTP 데이터 () 응답 하는 방법
+    [1] HttpServletResponse
+        .getWriter().print("응답할데이터");
+    [2] @ResponseBody
+        return 데이터자료;   * 메소드의 리턴타입 일치
+            2-1. 메소드 위에 @ResponseBody: 해당 메소드의 반환 (자바)타입을 (HTTP) 타입으로 변환을 해줌
+            2-2. 클래스 위에 @RestController: 해당하는 클래스내 모든 메소드는 @ResponseBody 생략해도 기능이 적용된다.
+
+자바의 기본타입(int, float, boolean 등등) 처럼 HTTP의 타입 존재
+    HTTP Content-type
+        - HTTP 타입중 application/json 존재
+            - HTTP는 자바 타입을 지원 안한다
+            - 자바 타입을 HTTP 타입으로 변환

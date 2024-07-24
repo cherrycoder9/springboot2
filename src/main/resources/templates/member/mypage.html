@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>내정보 페이지</title>
+
+</head>
+
+<body>
+	<div th:replace="~{/header.html::header}"></div>
+	<form>
+		회원번호: <span id="no"></span><br>
+		아이디: <span id="id"></span><br>
+		이름: <span id="name"></span><br>
+		이메일: <span id="email"></span><br>
+		연락처: <span id="phone"></span><br>
+	</form> <br>
+	<button type="button" onclick="doModify()">수정</button>
+	<button type="button" onclick="doWithdraw()">탈퇴</button>
+	<br>
+
+	<script src="/js/member/mypage.js"></script>
+	<div th:replace="~{/footer.html::footer}"></div>
+</body>
+
+</html>

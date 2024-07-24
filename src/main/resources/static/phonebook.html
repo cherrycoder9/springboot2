@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<h3>전화번호 기록부</h3>
+<label for="name"><input id="name" placeholder="이름" type="text" /></label>
+<label for="phone"><input id="phone" placeholder="전화번호" type="text" /></label><br />
+<button onclick="postPhone()" type="button">등록</button>
+<div id="phoneListBox">
+	<span>유재석</span>
+	<span>010-3333-3333</span>
+</div>
+<!-- AJAX: HTTP 통신 지원하는 라이브러리는 제이쿼리에서 지원 -->
+<!-- 1. 최신 제이쿼리 라이브러리 필요, 주의할점: 제이쿼리 사용할 js보다 위에서 작성 -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="phonebook.js"></script>
+
+
+</body>
+</html>

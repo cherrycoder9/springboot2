@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" type="text/css" href="/path/to/common.css">
+</head>
+
+<body>
+	<header th:fragment="header">
+		<ul>
+			<li><a href="/">홈</a></li>
+			<li><a href="/member/login">로그인</a></li>
+			<li><a href="/member/signup">회원가입</a></li>
+			<li><a href="#" onclick="doLogout()">로그아웃</a></li>
+			<li><a href="/member/mypage" onclick="moveMypage()">마이페이지</a></li>
+		</ul>
+		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="/js/header.js"></script>
+	</header>
+</body>
+
+</html>

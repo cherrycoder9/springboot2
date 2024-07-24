@@ -1,0 +1,58 @@
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#inputBox {
+    width: 40%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+#inputBox input {
+    width: 70%;
+    padding: 10px;
+}
+
+#inputBox button {
+    display: flex;
+    width: 30%;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+#tableBox {
+    width: 40%;
+    margin-top: 30px;
+}
+
+#tableBox {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+#tableBox div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.willTodo {
+    background-color: beige;
+}
+
+.doneTodo {
+    background-color: rgb(178, 178, 178);
+}
+
+.doneTodo div:first-child {
+    text-decoration: line-through;
+}
+
+#tableBox button {
+    margin-left: 5px;
+}
