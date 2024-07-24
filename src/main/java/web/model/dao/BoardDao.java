@@ -22,7 +22,6 @@ public class BoardDao extends Dao{
                         .bcno(rs.getLong("bcno"))
                         .bcname(rs.getString("bcname"))
                         .build();
-
                 list.add(boardDto);
             } return list;
 
