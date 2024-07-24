@@ -13,7 +13,7 @@ public class BoardDao extends Dao{
         try{
             BoardDto boardDto;
             String sql = "select * from bcategory";
-            conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()){
                 boardDto = BoardDto.builder()
@@ -22,8 +22,8 @@ public class BoardDao extends Dao{
                         .build();
 
                 list.add(boardDto);
-            }
+            } return list;
 
-        }catch (Exception e) {System.out.println(e);} return list;
+        }catch (Exception e) {System.out.println(e);} return null;
     }
 }//class end
