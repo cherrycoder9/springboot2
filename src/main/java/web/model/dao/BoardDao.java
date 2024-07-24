@@ -3,6 +3,8 @@ package web.model.dao;
 import org.springframework.stereotype.Component;
 import web.model.dto.BoardDto;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 @Component //
@@ -34,11 +36,12 @@ public class BoardDao extends Dao{
         try{
             System.out.println("null-2");
             BoardDto boardDto;
-            String sql = "select bno , btitle , bcontent , bview, bdate , no from board;";
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
+            String sql = "select bno , btitle , bcontent , bview, bdate , no from board";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             System.out.println("null-3");
             while(rs.next()){
+                System.out.println("bno출력: ");
                 boardDto = BoardDto.builder()
                         .bno(rs.getLong("bno"))
                         .btitle(rs.getString("btitle"))
