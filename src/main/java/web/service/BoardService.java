@@ -10,7 +10,7 @@ public class BoardService {
 
     @Autowired BoardDao boardDao;
 
-    public String category(){
-
-    }
+//    public String category(){
+//
+//    }
 }

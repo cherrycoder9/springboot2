@@ -65,4 +65,10 @@ public class ViewController {
         return "member/withdraw";
     }
 
+    // 전체 출력 페이지 return html
+    @GetMapping("/board/allpage")
+    public String bAllpage(){
+        return "/board/allpage";
+    }
+
 }

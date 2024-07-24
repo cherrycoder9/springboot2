@@ -4,13 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
-	<link rel="stylesheet" type="text/css" href="/path/to/common.css">
 </head>
 
 <body>
 	<header th:fragment="header">
 		<ul>
 			<li><a href="/">홈</a></li>
+			<li><a href="/board/allpage" onclick="moveBoard()">게시판</a></li>
 			<li><a href="/member/login">로그인</a></li>
 			<li><a href="/member/signup">회원가입</a></li>
 			<li><a href="#" onclick="doLogout()">로그아웃</a></li>

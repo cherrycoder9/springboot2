@@ -1,7 +1,6 @@
 package web.contoller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import web.service.BoardService;
@@ -13,10 +12,6 @@ public class BoardController {
 
     @Autowired BoardService boardService; //
 
-    @GetMapping("/category")
-    public String category(){
-        //로그인 상태
-        return BoardService.category();
-    }
+
 
 }
