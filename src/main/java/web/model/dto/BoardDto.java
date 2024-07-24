@@ -12,8 +12,9 @@ public class BoardDto {
     private String bdate;       // 작성일
     // 카테고리
     private long bcno ;         // 카테고리 번호
-    private long bcname ;         // 카테고리 이름
+    private String bcname ;         // 카테고리 이름
     // 회원
     private long no ;          // 작성자 번호
     private String id;          // 작성자 아이디
+
 }
