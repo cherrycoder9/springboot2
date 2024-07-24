@@ -17,4 +17,9 @@ public class BoardService {
 
         return boardDao.category();
     }
+
+    public ArrayList<BoardDto> all(){
+        System.out.println("BoardService.all");
+        return boardDao.all();
+    }
 }

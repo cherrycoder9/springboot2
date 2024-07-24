@@ -21,5 +21,10 @@ public class BoardController {
         return boardService.category();
     }
 
+    @GetMapping("/all")
+    public ArrayList<BoardDto> all(){
+        System.out.println("BoardController.all");
+        return boardService.all();
+    }
 
 }
