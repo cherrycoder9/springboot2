@@ -2,6 +2,7 @@ package web.contoller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import web.model.dto.BoardDto;
@@ -32,8 +33,8 @@ public class BoardController {
     // btitle, bcontent, bcno, no (글제목, 글내용, 카테고리, 회원번호)
     // 회원번호는 여기서 안하고 서비스단에서 세션으로 확인한 다음에 처리
     // 반환값은 글쓰기 성공 실패, 불리언 값 반환
-    @GetMapping("/write")
+    @PostMapping("/write")
     public boolean bWrite() {
-        return boardService.bWrite();
+        return true;
     }
 }

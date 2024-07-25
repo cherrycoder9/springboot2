@@ -50,4 +50,7 @@ function doBoard() {
 // 글쓰기 버튼
 function writePost() {
     console.log('writePost()');
+    // 글쓰기 페이지로 이동 
+    location.href = "./board/write.html";
+
 }
