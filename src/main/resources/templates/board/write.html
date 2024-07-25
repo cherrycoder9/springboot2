@@ -10,6 +10,17 @@
 	<div th:replace="~{/header.html::header}"></div>
 	<div id="">
 		글 작성 페이지
+
+		카테고리<select id="selectbox">
+		<option> 자유 </option>
+		<option> 노하우 </option>
+		<option> 판매 </option>
+		<option> 구매 </option>
+		</select> <br/>
+		글제목 <input type="text" id="btitle"/> <br/>
+		글내용 <textarea id="bcontent"></textarea><br/>
+		<button type="button"> 등록 </button>
+
 	</div>
 
 
