@@ -28,29 +28,39 @@ function doBoard() {
             // 글 목록 배열을 반환받으면 출력 
             console.log(result);
 
-            //어디에
+            // 게시물이 표시될 컨테이너
             let boardBox = document.querySelector('#boardBox');
-            let html = '';
+            let html = `<table border="1">
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                        </tr>`;
 
-            // 출력사항: 게시물 번호, 제목, 작성자(id), 작성일, 조회수
-            for (let i = 0; i < result.length; i++) {
-                html += `<div> ${result[i].bno} </div>`;
-                html += `<div> ${result[i].btitle} </div>`;
-                html += `<div> ${result[i].id} </div>`;
-                html += `<div> ${result[i].bdate} </div>`;
-                html += `<div> ${result[i].bview} </div>`;
-            }
+            // 게시물 정보 출력
+            result.forEach(board => {
+                html += `<tr>
+                            <td>${board.bno}</td>
+                            <td><a href="/board/detailpage?bno=${board.bno}">${board.btitle}</a></td>
+                            <td>${board.id}</td>
+                            <td>${board.bdate}</td>
+                            <td>${board.bview}</td>
+                         </tr>`;
+            });
+
+            html += `</table>`;
             boardBox.innerHTML = html;
-            console.log('test4');
-        }//success end
-    });//ajax end
-} //doBoard end
+        } // success end
+    }); // ajax end
+} // doBoard end
 
 
 // 글쓰기 버튼
 function writePost() {
     console.log('writePost()');
     // 글쓰기 페이지로 이동 
-    location.href = "./board/write.html";
+    location.href = "./write";
 
 }
