@@ -1,3 +1,5 @@
+// src\main\java\web\contoller\ViewController.java
+
 package web.contoller;
 
 import org.springframework.stereotype.Controller;

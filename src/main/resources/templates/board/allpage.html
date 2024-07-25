@@ -1,3 +1,5 @@
+<!-- src\main\resources\templates\board\allpage.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,26 +9,26 @@
 </head>
 
 <body>
-	<div th:replace="~{/header.html::header}"></div>
-	<div id="cateBox">
-		카테고리 페이지
-	</div>
-	<br />
+<div th:replace="~{/header.html::header}"></div>
+<div id="cateBox">
+	카테고리 페이지
+</div>
+<br />
 
-	<div id="btnBox">
-		글쓰기 버튼 출력구간
-		<button id="writePost" onclick="writePost()">글쓰기</button>
-	</div>
-	<br />
+<div id="btnBox">
+	글쓰기 버튼 출력구간
+	<button id="writePost" onclick="writePost()">글쓰기</button>
+</div>
+<br />
 
-	<div id="boardBox">
+<div id="boardBox">
 
-	</div>
-	<br />
+</div>
+<br />
 
-	<div th:replace="~{/footer.html::footer}"></div>
-	<script src="/js/board/allpage.js"></script>
-	<script src="/js/board/category.js"></script>
+<div th:replace="~{/footer.html::footer}"></div>
+<script src="/js/board/allpage.js"></script>
+<script src="/js/board/category.js"></script>
 </body>
 
 </html>

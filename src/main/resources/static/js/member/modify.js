@@ -1,3 +1,5 @@
+// src\main\resources\static\js\member\modify.js
+
 console.log("modify.js");
 
 /* <form>

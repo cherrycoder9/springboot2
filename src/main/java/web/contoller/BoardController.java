@@ -1,10 +1,9 @@
+// src\main\java\web\contoller\BoardController.java
+
 package web.contoller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import web.model.dto.BoardDto;
 import web.service.BoardService;
 
@@ -44,5 +43,11 @@ public class BoardController {
     @GetMapping("/detail")
     public BoardDto bDetail(final Long bno) {
         return boardService.bDetail(bno);
+    }
+
+    // 글 삭제 요청 api (서비스로 넘김)
+    @DeleteMapping("/board/delete")
+    public boolean deleteBoard(@RequestParam("bno") final Long bno) {
+        return boardService.deleteBoard(bno);
     }
 }

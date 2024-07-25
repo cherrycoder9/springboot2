@@ -1,3 +1,5 @@
+// src\main\resources\static\js\member\login.js
+
 console.log('login.js');
 
 // 로그인 

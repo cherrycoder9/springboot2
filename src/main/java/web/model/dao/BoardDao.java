@@ -1,13 +1,15 @@
+// src\main\java\web\model\dao\BoardDao.java
+
 package web.model.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import web.model.dto.BoardDto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Slf4j
@@ -36,39 +38,35 @@ public class BoardDao extends Dao {
         return null;
     }
 
+    // 글 전체 출력 dao
     public ArrayList<BoardDto> all() {
         System.out.println("BoardDao.all");
         final ArrayList<BoardDto> list = new ArrayList<>();
-        System.out.println("null-1");
         try {
-            System.out.println("null-2");
-            BoardDto boardDto;
-            final String sql = "select bno , btitle , bcontent , bview, bdate , no from board";
+            final String sql = "SELECT b.bno, b.btitle, b.bcontent, b.bview, b.bdate, b.no, m.id " +
+                    "FROM board b " +
+                    "JOIN member m ON b.no = m.no";
             final PreparedStatement ps = conn.prepareStatement(sql);
             final ResultSet rs = ps.executeQuery();
-            System.out.println("null-3");
             while (rs.next()) {
-                System.out.println("bno출력: ");
-                boardDto = BoardDto.builder()
+                final BoardDto boardDto = BoardDto.builder()
                         .bno(rs.getLong("bno"))
                         .btitle(rs.getString("btitle"))
                         .bcontent(rs.getString("bcontent"))
                         .bview(rs.getLong("bview"))
                         .bdate(rs.getString("bdate"))
                         .no(rs.getLong("no"))
+                        .id(rs.getString("id")) // 작성자 ID 추가
                         .build();
-
-                System.out.println("null-4");
                 list.add(boardDto);
-                System.out.println(list);
             }
             return list;
         } catch (final Exception e) {
             log.error("e: ", e);
         }
-        System.out.println("null");
         return null;
     }
+
 
     // 글쓰기 처리 dao
     @PostMapping("/write")
@@ -90,12 +88,15 @@ public class BoardDao extends Dao {
     }
 
     // 글 상세페이지 출력 dao
-    @GetMapping("/detail")
     public BoardDto bDetail(final Long bno) {
         System.out.println("BoardDao.bDetail");
         try {
             final BoardDto boardDto;
-            final String sql = "select bno , btitle , bcontent , bview, bdate , no from board where bno = ?";
+            final String sql = "SELECT b.bno, b.btitle, b.bcontent, b.bview, b.bdate, b.no, c.bcname, m.id " +
+                    "FROM board b " +
+                    "JOIN bcategory c ON b.bcno = c.bcno " +
+                    "JOIN member m ON b.no = m.no " +
+                    "WHERE b.bno = ?";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, bno);
             rs = ps.executeQuery();
@@ -107,6 +108,8 @@ public class BoardDao extends Dao {
                         .bview(rs.getLong("bview"))
                         .bdate(rs.getString("bdate"))
                         .no(rs.getLong("no"))
+                        .bcname(rs.getString("bcname"))  // 카테고리 이름 추가
+                        .id(rs.getString("id"))          // 작성자 ID 추가
                         .build();
                 return boardDto;
             }
@@ -116,4 +119,16 @@ public class BoardDao extends Dao {
         return null;
     }
 
+    // 삭제 처리 요청 dao
+    public boolean deleteBoard(final Long bno) {
+        final String sql = "DELETE FROM board WHERE bno = ?";
+        try (final PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, bno);
+            final int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+        } catch (final SQLException e) {
+            log.error("e: ", e);
+        }
+        return false;
+    }
 }//class end

@@ -1,3 +1,5 @@
+// src\main\java\web\model\dao\MemberDao.java
+
 package web.model.dao;
 
 import lombok.extern.slf4j.Slf4j;
@@ -137,7 +139,7 @@ public class MemberDao extends Dao {
     }
 
     // 회원 탈퇴 dao
-    public boolean mWithdraw(MemberDto mDto) {
+    public boolean mWithdraw(final MemberDto mDto) {
         System.out.println("MemberDao.mWithdraw");
         try {
             // 비밀번호와 회원번호 검증 후 맞으면 회원탈퇴 성공 처리

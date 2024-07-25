@@ -1,3 +1,5 @@
+// src\main\resources\static\js\member\signup.js
+
 console.log('signup.js');
 
 // 2. 아이디 유효성 검사
@@ -54,19 +56,19 @@ function idCheck() {
             console.log("아이디 중복");
             idCheckBox.innerHTML = "중복된 아이디입니다.";
             checkArray[0] = false;
-            return;
+
         } else {
             console.log("아이디 적합");
             idCheckBox.innerHTML = "사용 가능한 아이디입니다.";
             checkArray[0] = true;
-            return;
+
         }
 
     } else {
         console.log("아이디 부적합");
         idCheckBox.innerHTML = "알파벳 대소문자와 숫자 조합의 5~30글자로 입력해주세요.";
         checkArray[0] = false;
-        return;
+
     }
 }
 
@@ -86,12 +88,12 @@ function pwCheck() {
             console.log("비밀번호 적합");
             pwCheckBox.innerHTML = "비밀번호가 일치합니다.";
             checkArray[1] = true;
-            return;
+
         } else {
             console.log("비밀번호 부적합");
             pwCheckBox.innerHTML = "비밀번호가 일치하지 않습니다.";
             checkArray[1] = false;
-            return;
+
         }
     }
 }
@@ -268,11 +270,11 @@ function emailCheck() {
         // 이메일 인증검사
         // 인증버튼 활성화 
         authBtn.disabled = false;
-        return;
+
     } else {
         console.log("이메일 부적합");
         emailCheckBox.innerHTML = "이메일이 적합하지 않습니다.";
-        return;
+
     }
 }
 

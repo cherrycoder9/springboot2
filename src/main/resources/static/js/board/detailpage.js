@@ -41,16 +41,12 @@ function editPost() {
     window.location.href = `/board/update?bno=${bno}`;
 }
 
-function deletePost() {
-    console.log('deletePost()');
-    const urlParams = new URLSearchParams(window.location.search);
-    const bno = urlParams.get('bno');
-
+function deletePost(bno) {
     if (confirm("정말로 삭제하시겠습니까?")) {
         $.ajax({
             method: 'DELETE',
             url: `/board/delete`,
-            data: JSON.stringify({ bno }),
+            data: { "bno": bno },
             contentType: "application/json",
             success: (result) => {
                 if (result) {
@@ -63,3 +59,4 @@ function deletePost() {
         });
     }
 }
+

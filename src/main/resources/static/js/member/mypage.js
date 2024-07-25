@@ -1,3 +1,5 @@
+// src\main\resources\static\js\member\mypage.js
+
 console.log("mypage.js");
 
 mypage();

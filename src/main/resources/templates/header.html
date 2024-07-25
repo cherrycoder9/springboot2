@@ -1,3 +1,5 @@
+<!-- src\main\resources\templates\header.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,18 +9,18 @@
 </head>
 
 <body>
-	<header th:fragment="header">
-		<ul>
-			<li><a href="/">홈</a></li>
-			<li><a href="/board/allpage" onclick="moveBoard()">게시판</a></li>
-			<li><a href="/member/login">로그인</a></li>
-			<li><a href="/member/signup">회원가입</a></li>
-			<li><a href="#" onclick="doLogout()">로그아웃</a></li>
-			<li><a href="/member/mypage" onclick="moveMypage()">마이페이지</a></li>
-		</ul>
-		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="/js/header.js"></script>
-	</header>
+<header th:fragment="header">
+	<ul>
+		<li><a href="/">홈</a></li>
+		<li><a href="/board/allpage" onclick="moveBoard()">게시판</a></li>
+		<li><a href="/member/login">로그인</a></li>
+		<li><a href="/member/signup">회원가입</a></li>
+		<li><a href="#" onclick="doLogout()">로그아웃</a></li>
+		<li><a href="/member/mypage" onclick="moveMypage()">마이페이지</a></li>
+	</ul>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/js/header.js"></script>
+</header>
 </body>
 
 </html>

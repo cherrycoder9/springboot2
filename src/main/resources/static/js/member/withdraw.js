@@ -1,3 +1,5 @@
+// src\main\resources\static\js\member\withdraw.js
+
 console.log("withdraw.js");
 
 function withdrawConfirm() {

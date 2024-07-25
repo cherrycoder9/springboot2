@@ -1,5 +1,6 @@
-package web.service;
+// src\main\java\web\service\BoardService.java
 
+package web.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -53,5 +54,10 @@ public class BoardService {
     @GetMapping("/detail")
     public BoardDto bDetail(final Long bno) {
         return boardDao.bDetail(bno);
+    }
+
+    // 삭제 처리 요청 service
+    public boolean deleteBoard(final Long bno) {
+        return boardDao.deleteBoard(bno);
     }
 }

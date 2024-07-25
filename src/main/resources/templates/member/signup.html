@@ -1,3 +1,5 @@
+<!-- src\main\resources\templates\member\signup.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,29 +10,29 @@
 </head>
 
 <body>
-	<div th:replace="~{/header.html::header}"></div>
-	회원가입 페이지
-	<form>
-		아이디: <input id="id" onkeyup="idCheck()" /><br>
-		<div id="idCheckBox"></div>
-
-		비밀번호: <input id="pw" onkeyup="pwCheck()" /><br>
-		비밀번호 확인: <input id="pwConfirm" onkeyup="pwCheck()" /><br>
-		<div id="pwCheckBox"></div>
-
-		이름: <input id="name" /><br>
-
-		이메일: <input id="email" onkeyup="emailCheck()" /><br>
-		<button id="authBtn" type="button" onclick="doAuth()" disabled>인증요청</button>
-		<div id="authBox"></div>
-		<div id="emailCheckBox"></div>
-
-		연락처: <input id="phone" onkeyup="phoneCheck()" /><br>
-		<div id="phoneCheckBox"></div>
-		<button onclick="doSignup()" type="button">회원가입</button>
-	</form>
-	<script src="/js/member/signup.js"></script>
-	<div th:replace="~{/footer.html::footer}"></div>
+<div th:replace="~{/header.html::header}"></div>
+회원가입 페이지
+<form>
+	아이디: <input id="id" onkeyup="idCheck()" /><br>
+	<div id="idCheckBox"></div>
+	
+	비밀번호: <input id="pw" onkeyup="pwCheck()" /><br>
+	비밀번호 확인: <input id="pwConfirm" onkeyup="pwCheck()" /><br>
+	<div id="pwCheckBox"></div>
+	
+	이름: <input id="name" /><br>
+	
+	이메일: <input id="email" onkeyup="emailCheck()" /><br>
+	<button disabled id="authBtn" onclick="doAuth()" type="button">인증요청</button>
+	<div id="authBox"></div>
+	<div id="emailCheckBox"></div>
+	
+	연락처: <input id="phone" onkeyup="phoneCheck()" /><br>
+	<div id="phoneCheckBox"></div>
+	<button onclick="doSignup()" type="button">회원가입</button>
+</form>
+<script src="/js/member/signup.js"></script>
+<div th:replace="~{/footer.html::footer}"></div>
 
 </body>
 
