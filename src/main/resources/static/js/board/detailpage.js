@@ -19,25 +19,35 @@ function loadBoardDetail() {
     });
 }
 
-function displayBoardDetail(board) {
-    console.log('displayBoardDetail()');
+function displayBoardDetail(response) {
+    console.log(response); // 응답 데이터 구조 확인
+    const board = response.board;
+    const loggedInUserId = response.loggedInUserId;
+
     const boardDetail = document.querySelector('#boardDetail');
     boardDetail.innerHTML = `
         <h2>${board.btitle}</h2>
-        <p>카테고리: ${board.bcname}</p>
-        <p>작성자: ${board.id}</p>
+        <p>카테고리: ${board.bcname || '알 수 없음'}</p>
+        <p>작성자: ${board.id || '알 수 없음'}</p>
         <p>작성일: ${board.bdate}</p>
         <p>조회수: ${board.bview}</p>
         <div>
             <p>${board.bcontent}</p>
         </div>
     `;
+
+    // 작성자와 로그인된 사용자가 동일한 경우에만 수정 및 삭제 버튼 표시
+    if (board.id === loggedInUserId) {
+        boardDetail.innerHTML += `
+            <div id="editDeleteButtons">
+                <button onclick="editPost(${board.bno})">수정</button>
+                <button onclick="deletePost(${board.bno})">삭제</button>
+            </div>
+        `;
+    }
 }
 
-function editPost() {
-    console.log('editPost()');
-    const urlParams = new URLSearchParams(window.location.search);
-    const bno = urlParams.get('bno');
+function editPost(bno) {
     window.location.href = `/board/update?bno=${bno}`;
 }
 
@@ -46,17 +56,18 @@ function deletePost(bno) {
         $.ajax({
             method: 'DELETE',
             url: `/board/delete`,
-            data: { "bno": bno },
+            data: JSON.stringify({bno: bno}),
             contentType: "application/json",
             success: (result) => {
                 if (result) {
                     alert('게시물이 삭제되었습니다.');
-                    window.location.href = '/board/all';
+                    window.location.href = '/board/allpage';
                 } else {
                     alert('삭제에 실패했습니다.');
                 }
-            }
+            },
         });
     }
 }
+
 

@@ -1,3 +1,5 @@
+// src\main\resources\static\js\board\allpage.js
+
 doBoard();
 function doBoard() {
     console.log('doBoard');

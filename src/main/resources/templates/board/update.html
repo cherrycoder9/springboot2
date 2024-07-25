@@ -1,7 +1,6 @@
 <!-- src\main\resources\templates\board\update.html -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<meta charset="UTF-8">
@@ -9,14 +8,24 @@
 </head>
 
 <body>
-<div th:replace="~{/header.html::header}"></div>
-<div id="">
-	글 수정 페이지
-</div>
+	<div th:replace="~{/header.html::header}"></div>
 
+	<div id="updateForm">
+		<h1>글 수정</h1>
+		<form id="boardForm">
+			<input type="hidden" id="bno" name="bno" />
+			<label for="btitle">제목:</label><br />
+			<input type="text" id="btitle" name="btitle" /><br /><br />
+			<label for="bcontent">내용:</label><br />
+			<textarea id="bcontent" name="bcontent"></textarea><br /><br />
+			<label for="bcno">카테고리:</label><br />
+			<input type="text" id="bcno" name="bcno" /><br /><br />
+			<button type="button" onclick="updatePost()">저장</button>
+		</form>
+	</div>
 
-<div th:replace="~{/footer.html::footer}"></div>
-<script src="/js/update.js"></script>
+	<div th:replace="~{/footer.html::footer}"></div>
+	<script src="/js/board/update.js"></script>
 </body>
 
 </html>

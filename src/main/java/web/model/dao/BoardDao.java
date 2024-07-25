@@ -131,4 +131,19 @@ public class BoardDao extends Dao {
         }
         return false;
     }
+
+    // 글 수정 dao
+    public boolean updateBoard(final BoardDto boardDto) {
+        final String sql = "UPDATE board SET btitle = ?, bcontent = ?, bcno = ? WHERE bno = ?";
+        try (final PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, boardDto.getBtitle());
+            ps.setString(2, boardDto.getBcontent());
+            ps.setLong(3, boardDto.getBcno());
+            ps.setLong(4, boardDto.getBno());
+            return ps.executeUpdate() > 0;
+        } catch (final SQLException e) {
+            log.error("e: ", e);
+        }
+        return false;
+    }
 }//class end

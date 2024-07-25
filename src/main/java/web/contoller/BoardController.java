@@ -2,20 +2,27 @@
 
 package web.contoller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.model.dto.BoardDto;
+import web.model.dto.MemberDto;
 import web.service.BoardService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/board") //공통 URL : BOARD 생성
 
 public class BoardController {
-
     @Autowired
     BoardService boardService; //
+
+    @Autowired
+    private HttpServletRequest request;
 
     @GetMapping("/category")
     public ArrayList<BoardDto> category() {
@@ -41,13 +48,33 @@ public class BoardController {
     // 매개변수 입력값 bno
     // 리턴값 json(bno, btitle, bcontent, bdate, bview, bcno)
     @GetMapping("/detail")
-    public BoardDto bDetail(final Long bno) {
-        return boardService.bDetail(bno);
+    public Map<String, Object> bDetail(@RequestParam final Long bno) {
+        final HttpSession session = request.getSession();
+        String loggedInUserId = null;
+
+        final MemberDto loginDto = (MemberDto) session.getAttribute("loginDto");
+        if (loginDto != null) {
+            loggedInUserId = loginDto.getId();
+        }
+
+        final BoardDto boardDto = boardService.bDetail(bno);
+
+        final Map<String, Object> response = new HashMap<>();
+        response.put("board", boardDto);
+        response.put("loggedInUserId", loggedInUserId);
+        return response;
     }
 
     // 글 삭제 요청 api (서비스로 넘김)
-    @DeleteMapping("/board/delete")
-    public boolean deleteBoard(@RequestParam("bno") final Long bno) {
+    @DeleteMapping("/delete")
+    public boolean deleteBoard(@RequestBody final Map<String, Long> requestData) {
+        final Long bno = requestData.get("bno");
         return boardService.deleteBoard(bno);
+    }
+
+    // 글 수정 요청 api (서비스로 넘김)
+    @PutMapping("/update")
+    public boolean updateBoard(@RequestBody BoardDto boardDto) {
+        return boardService.updateBoard(boardDto);
     }
 }

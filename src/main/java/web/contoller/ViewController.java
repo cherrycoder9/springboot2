@@ -85,4 +85,10 @@ public class ViewController {
         return "/board/detailpage";
     }
 
+    // 글 수정 페이지 return html
+    @GetMapping("/board/update")
+    public String bUpdate() {
+        return "/board/update";
+    }
+
 }

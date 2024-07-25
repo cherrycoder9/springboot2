@@ -60,4 +60,9 @@ public class BoardService {
     public boolean deleteBoard(final Long bno) {
         return boardDao.deleteBoard(bno);
     }
+
+    // 글 수정 service
+    public boolean updateBoard(BoardDto boardDto) {
+        return boardDao.updateBoard(boardDto);
+    }
 }
