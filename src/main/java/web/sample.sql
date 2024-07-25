@@ -1,74 +1,93 @@
-drop database if exists springweb;
-create database springweb;
-use springweb;
+-- 데이터베이스를 삭제하고 새로 생성
+DROP DATABASE IF EXISTS springweb;
+CREATE DATABASE springweb;
+USE springweb;
 
-drop tables if exists member;
-create table member(
-	no bigint auto_increment ,            -- 회원번호
-	id varchar(30) not null unique ,            -- 회원 아이디
-	pw varchar(30) not null ,            -- 회원 비밀번호
-	name varchar(20) not null ,            -- 회원 이름
-	email varchar(50) ,               -- 회원 이메일
-	phone varchar(13) not null unique,         -- 회원 핸드폰 번호
-	constraint member_no_pk primary key(no )       -- 회원 번호 pk
+-- 회원 테이블 삭제 및 생성
+DROP TABLE IF EXISTS member;
+CREATE TABLE member
+(
+    no    BIGINT AUTO_INCREMENT,       -- 회원번호, 자동 증가
+    id    VARCHAR(30) NOT NULL UNIQUE, -- 회원 아이디, 고유한 값
+    pw    VARCHAR(30) NOT NULL,        -- 회원 비밀번호
+    name  VARCHAR(20) NOT NULL,        -- 회원 이름
+    email VARCHAR(50),                 -- 회원 이메일
+    phone VARCHAR(13) NOT NULL UNIQUE, -- 회원 핸드폰 번호, 고유한 값
+    PRIMARY KEY (no)                   -- 기본 키 설정
 );
 
-# 1. 게시물 카테고리
-drop table if exists bcategory;
-create table  bcategory(
-   bcno int unsigned auto_increment ,
-    bcname varchar( 30 ) not null unique,
-   bcdate datetime default now() not null  ,
-    constraint bcategory_bcno_pk primary key ( bcno )
-);
-insert into bcategory( bcname ) values ( '자유' ) , ( '노하우' ) , ( '판매' ) , ( '구매') ;
-select * from bcategory;
+-- 회원 샘플 데이터 삽입
+INSERT INTO member (id, pw, name, email, phone)
+VALUES ('user1', 'password1', '홍길동', 'hong@example.com', '010-1234-5678'),
+       ('user2', 'password2', '이순신', 'lee@example.com', '010-2345-6789'),
+       ('user3', 'password3', '박영희', 'park@example.com', '010-3456-7890'),
+       ('user4', 'password4', '김철수', 'kim@example.com', '010-4567-8901'),
+       ('user5', 'password5', '최영', 'choi@example.com', '010-5678-9012'),
+       ('user6', 'password6', '안중근', 'ahn@example.com', '010-6789-0123'),
+       ('user7', 'password7', '유관순', 'yu@example.com', '010-7890-1234'),
+       ('user8', 'password8', '정약용', 'jeong@example.com', '010-8901-2345'),
+       ('user9', 'password9', '장보고', 'jang@example.com', '010-9012-3456'),
+       ('user10', 'password10', '신사임당', 'shin@example.com', '010-0123-4567');
 
-# 2. 게시물
-drop table if exists board;
-create table board(
-   bno bigint unsigned auto_increment ,
-    btitle varchar( 255 ) not null ,
-    bcontent longtext ,
-    bfile longtext ,
-    bview int unsigned default 0 not null ,
-    bdate datetime  default now() not null  ,
-    no  bigint ,
-    bcno int unsigned,
-    constraint board_bno_pk primary key( bno ) ,
-    constraint board_no_fk foreign key( no) references member( no ) on update cascade on delete cascade ,
-    constraint board_bcno_fk foreign key( bcno ) references bcategory( bcno ) on update cascade on delete cascade
+
+-- 게시물 카테고리 테이블 삭제 및 생성
+DROP TABLE IF EXISTS bcategory;
+CREATE TABLE bcategory
+(
+    bcno   INT UNSIGNED AUTO_INCREMENT,            -- 카테고리 번호, 자동 증가
+    bcname VARCHAR(30)            NOT NULL UNIQUE, -- 카테고리 이름, 고유한 값
+    bcdate DATETIME DEFAULT NOW() NOT NULL,        -- 카테고리 생성 날짜
+    PRIMARY KEY (bcno)                             -- 기본 키 설정
 );
 
-#예시;
+-- 게시물 카테고리 샘플 데이터 삽입
+INSERT INTO bcategory (bcname)
+VALUES ('자유'),   -- 자유 카테고리
+       ('노하우'),  -- 노하우 카테고리
+       ('판매'),   -- 판매 카테고리
+       ('구매'),   -- 구매 카테고리
+       ('공지사항'), -- 공지사항 카테고리
+       ('질문답변'), -- 질문답변 카테고리
+       ('구직'),   -- 구직 카테고리
+       ('구인');
+-- 구인 카테고리
 
-insert into board(btitle, bcontent, bview, no) values('ㅇㅇ', 'ㄴㅇㄹㄴㅇㄹ', 3, 1);
-#========== 확인용 ==================================================
-select *from board;
-select * from member;
-select bcno,bcname from bcategory where bcno = 1 and bcname = "자유";
-#================================================ 내가 작성한코드 ===============================
-select bno , btitle , bcontent , bview, bdate , no from board;
 
-# [2] 로그인 
-select * from member where id = 'qwe' and pw ='qwe';
+-- 게시물 테이블 삭제 및 생성
+DROP TABLE IF EXISTS board;
+CREATE TABLE board
+(
+    bno      BIGINT UNSIGNED AUTO_INCREMENT,                                           -- 게시물 번호, 자동 증가
+    btitle   VARCHAR(255)               NOT NULL,                                      -- 게시물 제목
+    bcontent LONGTEXT,                                                                 -- 게시물 내용
+    bfile    LONGTEXT,                                                                 -- 첨부 파일 (파일 경로 또는 파일명)
+    bview    INT UNSIGNED DEFAULT 0     NOT NULL,                                      -- 조회수, 기본값 0
+    bdate    DATETIME     DEFAULT NOW() NOT NULL,                                      -- 게시물 작성 날짜
+    no       BIGINT,                                                                   -- 회원 번호, 외래 키
+    bcno     INT UNSIGNED,                                                             -- 카테고리 번호, 외래 키
+    PRIMARY KEY (bno),                                                                 -- 기본 키 설정
+    FOREIGN KEY (no) REFERENCES member (no) ON UPDATE CASCADE ON DELETE CASCADE,       -- 회원 외래 키 설정
+    FOREIGN KEY (bcno) REFERENCES bcategory (bcno) ON UPDATE CASCADE ON DELETE CASCADE -- 카테고리 외래 키 설정
+);
 
-insert member(id,pw,name,email,phone) values("kkkkk","1234","김병찬","kk@naver.com","010-1111-1111");
+-- 게시물 샘플 데이터 삽입
+INSERT INTO board (btitle, bcontent, bview, no, bcno)
+VALUES ('첫 번째 게시글', '이것은 첫 번째 게시글의 내용입니다.', 10, 1, 1),
+       ('두 번째 게시글', '이것은 두 번째 게시글의 내용입니다.', 20, 2, 2),
+       ('세 번째 게시글', '이것은 세 번째 게시글의 내용입니다.', 30, 3, 3),
+       ('네 번째 게시글', '이것은 네 번째 게시글의 내용입니다.', 40, 4, 4),
+       ('다섯 번째 게시글', '이것은 다섯 번째 게시글의 내용입니다.', 50, 5, 1),
+       ('여섯 번째 게시글', '이것은 여섯 번째 게시글의 내용입니다.', 60, 6, 2),
+       ('일곱 번째 게시글', '이것은 일곱 번째 게시글의 내용입니다.', 70, 7, 3),
+       ('여덟 번째 게시글', '이것은 여덟 번째 게시글의 내용입니다.', 80, 8, 4),
+       ('아홉 번째 게시글', '이것은 아홉 번째 게시글의 내용입니다.', 90, 9, 1),
+       ('열 번째 게시글', '이것은 열 번째 게시글의 내용입니다.', 100, 10, 2);
 
-select * from member;
-#[4] 아이디 중복 검사
-select * from member where id = "kkkkk";
-select * from member where id = "KKKKK";
-#만일 대소문자를 구분하는 데이터 검색 할때는 binary(필드)
-#binary(필드) : 문자 가 아닌 바이트를 기준으로 비교,검색 한다.
-select * from member where binary(id) = 'kkkkk'; #소문자 kkkkk
-select * from member where binary(id) = 'KKKKK'; #대문자 KKKKK
-#JDBC : select  * from member where binary(id) = ?;
 
-#5 탈퇴
-delete from member where no = 9 and pw = 'qwe123'; #패스워드는 중복이 가능하므로 식별 역할이 불가능하다.
-#JDBC : delete from member where no = ? and pw = ?;
-
-#6 수정
-update member set pw = 'qwe1234', name = '리리리', phone = '010-0101-1010' where no = 13 and pw = 'qwe123';
-#JDBC : update member set pw = ?, name = ?, phone = ? where no = ? and pw = ?;
+-- 데이터 확인 쿼리
+SELECT *
+FROM member; -- 회원 테이블의 모든 데이터
+SELECT *
+FROM bcategory; -- 게시물 카테고리 테이블의 모든 데이터
+SELECT *
+FROM board; -- 게시물 테이블의 모든 데이터
