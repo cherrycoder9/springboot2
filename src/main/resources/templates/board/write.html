@@ -11,21 +11,20 @@
 	<div id="">
 		글 작성 페이지
 
-		카테고리<select id="selectbox">
-		<option> 자유 </option>
-		<option> 노하우 </option>
-		<option> 판매 </option>
-		<option> 구매 </option>
-		</select> <br/>
-		글제목 <input type="text" id="btitle"/> <br/>
-		글내용 <textarea id="bcontent"></textarea><br/>
-		<button type="button"> 등록 </button>
+		<!-- DB에서 카테고리 받아와서 select, option으로 출력해야 함. js로딩시 처리 -->
+		<select id="selectbox">
+		</select>
+
+		<br />
+		글제목 <input id="btitle" type="text" /> <br />
+		글내용 <textarea id="bcontent"></textarea><br />
+		<button type="button" onclick="doWrite()"> 등록</button>
 
 	</div>
 
 
 	<div th:replace="~{/footer.html::footer}"></div>
-	<script src="/js/write.js"></script>
+	<script src="/js/board/write.js"></script>
 </body>
 
 </html>

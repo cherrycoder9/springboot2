@@ -30,12 +30,12 @@ public class BoardController {
     }
 
     // 글쓰기 처리 컨트롤러 (서비스단으로 넘김)
-    // btitle, bcontent, bcno, no (글제목, 글내용, 카테고리, 회원번호)
+    // ajax 입력값 btitle, bcontent, bcno, no (글제목, 글내용, 카테고리, 회원번호)
     // 회원번호는 여기서 안하고 서비스단에서 세션으로 확인한 다음에 처리
     // 반환값은 글쓰기 성공 실패, 불리언 값 반환
     @PostMapping("/write")
-    public boolean bWrite() {
-        return true;
+    public boolean bWrite(final String btitle, final String bcontent, final Long bcno) {
+        return boardService.bWrite(btitle, bcontent, bcno);
     }
 
     // 글 상세페이지 출력 컨트롤러
@@ -43,6 +43,6 @@ public class BoardController {
     // 리턴값 json(bno, btitle, bcontent, bdate, bview, bcno)
     @GetMapping("/detail")
     public BoardDto bDetail(final Long bno) {
-        return BoardService.bDetail(bno);
+        return boardService.bDetail(bno);
     }
 }
