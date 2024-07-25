@@ -37,4 +37,12 @@ public class BoardController {
     public boolean bWrite() {
         return true;
     }
+
+    // 글 상세페이지 출력 컨트롤러
+    // 매개변수 입력값 bno
+    // 리턴값 json(bno, btitle, bcontent, bdate, bview, bcno)
+    @GetMapping("/detail")
+    public BoardDto bDetail(final Long bno) {
+        return BoardService.bDetail(bno);
+    }
 }

@@ -77,4 +77,10 @@ public class ViewController {
         return "/board/write";
     }
 
+    // 글 상세페이지 출력 return html
+    @GetMapping("/board/detailpage")
+    public String bDetail() {
+        return "/board/detailpage";
+    }
+
 }
