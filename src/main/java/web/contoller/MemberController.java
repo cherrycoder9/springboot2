@@ -2,6 +2,7 @@
 
 package web.contoller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
@@ -122,6 +123,13 @@ public class MemberController {
     public boolean mWithdraw(@RequestParam("pw") final String pw) {
         System.out.println("MemberController.mWithdrawal");
         return mService.mWithdraw(pw);
+    }
+
+    // 로그인 상태 확인
+    @GetMapping("/member/login/status")
+    public boolean checkLoginStatus(HttpSession session) {
+        MemberDto loginDto = (MemberDto) session.getAttribute("loginDto");
+        return loginDto != null;
     }
 
 

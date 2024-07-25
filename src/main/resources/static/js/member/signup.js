@@ -2,6 +2,25 @@
 
 console.log('signup.js');
 
+document.addEventListener('DOMContentLoaded', () => {
+    checkLoginStatus();
+});
+
+function checkLoginStatus() {
+    $.ajax({
+        method: 'GET',
+        url: '/member/login/status',
+        contentType: "application/json",
+        success: function (isLoggedIn) {
+            if (isLoggedIn) {
+                alert("이미 로그인되어 있습니다.");
+                window.location.href = '/';
+            }
+        }
+    });
+}
+
+
 // 2. 아이디 유효성 검사
 function idCheck() {
     console.log("idCheck()");
