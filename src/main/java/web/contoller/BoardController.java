@@ -14,17 +14,26 @@ import java.util.ArrayList;
 
 public class BoardController {
 
-    @Autowired BoardService boardService; //
+    @Autowired
+    BoardService boardService; //
 
     @GetMapping("/category")
-    public ArrayList<BoardDto> category ( ){
+    public ArrayList<BoardDto> category() {
         return boardService.category();
     }
 
     @GetMapping("/all")
-    public ArrayList<BoardDto> all(){
+    public ArrayList<BoardDto> all() {
         System.out.println("BoardController.all");
         return boardService.all();
     }
 
+    // 글쓰기 처리 컨트롤러 (서비스단으로 넘김)
+    // btitle, bcontent, bcno, no (글제목, 글내용, 카테고리, 회원번호)
+    // 회원번호는 여기서 안하고 서비스단에서 세션으로 확인한 다음에 처리
+    // 반환값은 글쓰기 성공 실패, 불리언 값 반환
+    @GetMapping("/write")
+    public boolean bWrite() {
+        return boardService.bWrite();
+    }
 }
