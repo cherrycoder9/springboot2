@@ -67,8 +67,14 @@ public class ViewController {
 
     // 전체 출력 페이지 return html
     @GetMapping("/board/allpage")
-    public String bAllpage(){
+    public String bAllpage() {
         return "/board/allpage";
+    }
+
+    // 글쓰기 페이지 return html
+    @GetMapping("/board/write")
+    public String bWrite() {
+        return "/board/write";
     }
 
 }

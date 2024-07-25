@@ -45,3 +45,9 @@ function doBoard() {
         }//success end
     });//ajax end
 } //doBoard end
+
+
+// 글쓰기 버튼
+function writePost() {
+    console.log('writePost()');
+}

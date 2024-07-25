@@ -11,10 +11,18 @@
 	<div id="cateBox">
 		카테고리 페이지
 	</div>
+	<br />
+
+	<div id="btnBox">
+		글쓰기 버튼 출력구간
+		<button id="writePost" onclick="writePost()">글쓰기</button>
+	</div>
+	<br />
 
 	<div id="boardBox">
 		게시물 출력 구간
 	</div>
+	<br />
 
 	<div th:replace="~{/footer.html::footer}"></div>
 	<script src="/js/board/allpage.js"></script>
