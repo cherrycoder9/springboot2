@@ -142,7 +142,7 @@ public class BoardDao extends Dao {
             ps.setLong(4, boardDto.getBno());
             return ps.executeUpdate() > 0;
         } catch (final SQLException e) {
-            log.error("e: ", e);
+            log.error("SQL Exception: ", e);
         }
         return false;
     }

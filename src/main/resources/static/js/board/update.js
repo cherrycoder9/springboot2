@@ -2,15 +2,13 @@
 console.log('update.js');
 document.addEventListener('DOMContentLoaded', (event) => {
     loadBoardData();
+    loadCategories();
 });
 
 function loadBoardData() {
-    console.log('loadBoardData()');
-    // URL에서 bno 파라미터 가져오기
     const urlParams = new URLSearchParams(window.location.search);
     const bno = urlParams.get('bno');
 
-    // 게시물 상세 정보 가져오기
     $.ajax({
         method: 'GET',
         url: `/board/detail?bno=${bno}`,
@@ -25,8 +23,24 @@ function loadBoardData() {
     });
 }
 
+function loadCategories() {
+    $.ajax({
+        method: 'GET',
+        url: `/board/category`,
+        contentType: "application/json",
+        success: (data) => {
+            const selectBox = document.getElementById('bcno');
+            data.forEach(category => {
+                let option = document.createElement('option');
+                option.value = category.bcno;
+                option.text = category.bcname;
+                selectBox.appendChild(option);
+            });
+        }
+    });
+}
+
 function updatePost() {
-    console.log('updatePost()');
     const bno = document.getElementById('bno').value;
     const btitle = document.getElementById('btitle').value;
     const bcontent = document.getElementById('bcontent').value;
@@ -49,6 +63,6 @@ function updatePost() {
             } else {
                 alert('수정에 실패했습니다.');
             }
-        },
+        }
     });
 }

@@ -19,7 +19,8 @@ public class BoardService {
     @Autowired
     BoardDao boardDao;
     @Autowired
-    private HttpServletRequest request;
+    HttpServletRequest request;
+
 
     public ArrayList<BoardDto> category() {
 
@@ -62,7 +63,7 @@ public class BoardService {
     }
 
     // 글 수정 service
-    public boolean updateBoard(BoardDto boardDto) {
+    public boolean updateBoard(final BoardDto boardDto) {
         return boardDao.updateBoard(boardDto);
     }
 }
