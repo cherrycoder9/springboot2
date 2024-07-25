@@ -20,6 +20,7 @@ function loadBoardDetail() {
 }
 
 function displayBoardDetail(board) {
+    console.log('displayBoardDetail()');
     const boardDetail = document.querySelector('#boardDetail');
     boardDetail.innerHTML = `
         <h2>${board.btitle}</h2>
@@ -34,12 +35,14 @@ function displayBoardDetail(board) {
 }
 
 function editPost() {
+    console.log('editPost()');
     const urlParams = new URLSearchParams(window.location.search);
     const bno = urlParams.get('bno');
     window.location.href = `/board/update?bno=${bno}`;
 }
 
 function deletePost() {
+    console.log('deletePost()');
     const urlParams = new URLSearchParams(window.location.search);
     const bno = urlParams.get('bno');
 

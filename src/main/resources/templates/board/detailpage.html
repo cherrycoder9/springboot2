@@ -7,19 +7,19 @@
 </head>
 
 <body>
-	<div th:replace="~{/header.html::header}"></div>
-	<div>
-		<h1>글 상세 페이지</h1>
-		<div id="boardDetail">
-			<!-- 글 상세 정보가 여기에 표시됩니다. -->
-		</div>
-		<div>
-			<button onclick="editPost()">수정</button>
-			<button onclick="deletePost()">삭제</button>
-		</div>
+<div th:replace="~{/header.html::header}"></div>
+<div>
+	<h1>글 상세 페이지</h1>
+	<div id="boardDetail">
+		<!-- 글 상세정보 표시 -->
 	</div>
-	<div th:replace="~{/footer.html::footer}"></div>
-	<script src="/js/detailpage.js"></script>
+	<div>
+		<button onclick="editPost()">수정</button>
+		<button onclick="deletePost()">삭제</button>
+	</div>
+</div>
+<div th:replace="~{/footer.html::footer}"></div>
+<script src="/js/board/detailpage.js"></script>
 </body>
 
 </html>
