@@ -1,45 +1,51 @@
+// src\main\resources\static\js\board\write.js
+
 console.log('write.js');
 
-// write.html 페이지가 열리면 바로 실행할 함수 
-
-// 카테고리를 불러옴
-$.ajax({
-    method: 'get',
-    url: '/board/category',
-    success: function (result) {
-        // 받아오는데 성공하면 각 카테고리의 이름을 select box의 option으로 하나씩 추가 
-        if (result != '') {
-            console.log(result);
-            for (let i = 0; i < result.length; i++) {
-                $('#selectbox').append('<option value="' + result[i].bcno + '">' + result[i].bcname + '</option>');
-            }
-        } else {
-            alert('오류 발생');
-        }
-    }
+// 페이지 로드 시 카테고리 목록 가져오기
+document.addEventListener('DOMContentLoaded', () => {
+    loadCategories();
 });
 
+function loadCategories() {
+    $.ajax({
+        method: 'GET',
+        url: '/board/category',
+        success: (data) => {
+            let selectBox = document.querySelector('#selectbox');
+            selectBox.innerHTML = ''; // 기존 옵션 삭제
+            data.forEach(category => {
+                let option = document.createElement('option');
+                option.value = category.bcno;
+                option.text = category.bcname;
+                selectBox.appendChild(option);
+            });
+        }
+    });
+}
 
-// 글쓰고 등록 버튼을 누르면 실행할 버튼의 함수
-// DB에 글 내용을 저장함
+// 글 작성 요청
 function doWrite() {
-    console.log('doWrite()');
-
-    let btitle = $('#btitle').val();
-    let bcontent = $('#bcontent').val();
-    let bcno = $('#selectbox').val();
+    const formData = new FormData();
+    formData.append("btitle", document.querySelector('#btitle').value);
+    formData.append("bcontent", document.querySelector('#bcontent').value);
+    formData.append("bcno", document.querySelector('#selectbox').value);
+    formData.append("bfile", document.querySelector('#bfile').files[0]);
 
     $.ajax({
-        method: 'post',
+        method: 'POST',
         url: '/board/write',
-        data: {btitle, bcontent, bcno},
-        success: function (result) {
-            if (result) {
-                alert('글쓰기 성공');
-                location.href = '/board/allpage';
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            if (response) {
+                alert('글 작성이 완료되었습니다.');
+                window.location.href = '/board/allpage';
             } else {
-                alert('글쓰기 실패');
+                alert('글 작성에 실패했습니다.');
             }
         }
     });
 }
+

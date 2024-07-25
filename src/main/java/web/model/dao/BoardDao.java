@@ -4,7 +4,6 @@ package web.model.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
 import web.model.dto.BoardDto;
 
 import java.sql.PreparedStatement;
@@ -69,16 +68,16 @@ public class BoardDao extends Dao {
 
 
     // 글쓰기 처리 dao
-    @PostMapping("/write")
-    public boolean bWrite(final String btitle, final String bcontent, final Long bcno, final Long no) {
+    public boolean bWrite(final String btitle, final String bcontent, final Long bcno, final Long no, final String filePath) {
         System.out.println("BoardDao.bWrite");
         try {
-            final String sql = "insert into board(btitle, bcontent, bcno, no) values(?,?,?,?)";
+            final String sql = "insert into board(btitle, bcontent, bcno, no, bfile) values(?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, btitle);
             ps.setString(2, bcontent);
             ps.setLong(3, bcno);
             ps.setLong(4, no);
+            ps.setString(5, filePath);
             ps.executeUpdate();
             return true;
         } catch (final Exception e) {
@@ -87,12 +86,13 @@ public class BoardDao extends Dao {
         return false;
     }
 
+
     // 글 상세페이지 출력 dao
     public BoardDto bDetail(final Long bno) {
         System.out.println("BoardDao.bDetail");
         try {
             final BoardDto boardDto;
-            final String sql = "SELECT b.bno, b.btitle, b.bcontent, b.bview, b.bdate, b.no, c.bcname, m.id " +
+            final String sql = "SELECT b.bno, b.btitle, b.bcontent, b.bview, b.bdate, b.no, c.bcname, m.id, b.bfile " +
                     "FROM board b " +
                     "JOIN bcategory c ON b.bcno = c.bcno " +
                     "JOIN member m ON b.no = m.no " +
@@ -110,6 +110,7 @@ public class BoardDao extends Dao {
                         .no(rs.getLong("no"))
                         .bcname(rs.getString("bcname"))  // 카테고리 이름 추가
                         .id(rs.getString("id"))          // 작성자 ID 추가
+                        .bfile(rs.getString("bfile"))    // 첨부파일 경로 추가
                         .build();
                 return boardDto;
             }
@@ -118,6 +119,7 @@ public class BoardDao extends Dao {
         }
         return null;
     }
+
 
     // 삭제 처리 요청 dao
     public boolean deleteBoard(final Long bno) {

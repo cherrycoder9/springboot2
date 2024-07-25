@@ -1,3 +1,6 @@
+// src\main\resources\static\js\board\detailpage.js
+console.log('detailpage.js');
+
 document.addEventListener('DOMContentLoaded', (event) => {
     loadBoardDetail();
 });
@@ -20,9 +23,10 @@ function loadBoardDetail() {
 }
 
 function displayBoardDetail(response) {
-    console.log(response); // 응답 데이터 구조 확인
+    console.log(response);
     const board = response.board;
     const loggedInUserId = response.loggedInUserId;
+    const fileName = board.bfile ? board.bfile.split('_')[1] : '없음'; // UUID 제거하고 파일명만 추출
 
     const boardDetail = document.querySelector('#boardDetail');
     boardDetail.innerHTML = `
@@ -34,9 +38,11 @@ function displayBoardDetail(response) {
         <div>
             <p>${board.bcontent}</p>
         </div>
+        <div>
+            <p>첨부파일: <a href="/upload/${board.bfile}" target="_blank">${fileName}</a></p>
+        </div>
     `;
 
-    // 작성자와 로그인된 사용자가 동일한 경우에만 수정 및 삭제 버튼 표시
     if (board.id === loggedInUserId) {
         boardDetail.innerHTML += `
             <div id="editDeleteButtons">
@@ -48,10 +54,12 @@ function displayBoardDetail(response) {
 }
 
 function editPost(bno) {
+    console.log('editPost()');
     window.location.href = `/board/update?bno=${bno}`;
 }
 
 function deletePost(bno) {
+    console.log('deletePost()');
     if (confirm("정말로 삭제하시겠습니까?")) {
         $.ajax({
             method: 'DELETE',
@@ -69,5 +77,3 @@ function deletePost(bno) {
         });
     }
 }
-
-

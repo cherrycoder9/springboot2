@@ -1,5 +1,3 @@
-/* src\main\resources\static\css\common.css */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -102,4 +100,84 @@ button:hover {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+/* 추가된 스타일링 */
+#boardDetail {
+    width: 80%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+#boardDetail h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#boardDetail p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+}
+
+#boardDetail a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#boardDetail a:hover {
+    text-decoration: underline;
+}
+
+#editDeleteButtons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+#editDeleteButtons button {
+    margin-left: 10px;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th, td {
+    padding: 12px;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+a:hover {
+    color: #0056b3;
 }

@@ -4,22 +4,26 @@ package web.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
 import web.model.dto.MemberDto;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+@Slf4j
 @Service
 public class BoardService {
     @Autowired
     BoardDao boardDao;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    FileService fileService;
 
 
     public ArrayList<BoardDto> category() {
@@ -33,29 +37,35 @@ public class BoardService {
     }
 
     // 글쓰기 처리 service (처리후 dao로 넘김)
-    @PostMapping("/write")
-    public boolean bWrite(final String btitle, final String bcontent, final Long bcno) {
+    public boolean bWrite(final String btitle, final String bcontent, final Long bcno, final MultipartFile bfile) {
         // 세션에서 로그인된 사용자 정보 가져오기
         final HttpSession session = request.getSession();
         final MemberDto loginDto = (MemberDto) session.getAttribute("loginDto");
 
         if (loginDto == null) {
-            // 로그인되지 않은 상태라면 false 반환
             return false;
         }
 
-        // 로그인된 사용자의 회원 번호 가져오기
         final Long no = (long) loginDto.getNo();
+        String filePath = null;
 
-        // DAO로 데이터 전달
-        return boardDao.bWrite(btitle, bcontent, bcno, no);
+        // 파일 업로드 처리
+        if (bfile != null && !bfile.isEmpty()) {
+            try {
+                filePath = fileService.fileUpload(bfile);
+            } catch (final IOException e) {
+                log.error("e: ", e);
+            }
+        }
+
+        return boardDao.bWrite(btitle, bcontent, bcno, no, filePath);
     }
 
     // 글 상세페이지 출력 service (처리후 dao로 넘김)
-    @GetMapping("/detail")
     public BoardDto bDetail(final Long bno) {
         return boardDao.bDetail(bno);
     }
+
 
     // 삭제 처리 요청 service
     public boolean deleteBoard(final Long bno) {

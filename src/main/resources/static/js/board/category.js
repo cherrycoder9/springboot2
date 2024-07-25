@@ -1,5 +1,6 @@
 console.log('category.js');
 doCategory();
+
 function doCategory() {
     console.log('doCategory');
     $.ajax({
@@ -26,7 +27,7 @@ function doCategory() {
             html += `<div> ${result.bcname} </div>`;
 
             //출력
-            cateBox.innerHTML = html;
+            // cateBox.innerHTML = html;
             console.log('test4');
         } //success end
     });//ajax end
