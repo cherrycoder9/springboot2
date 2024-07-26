@@ -30,7 +30,11 @@ function doWrite() {
     formData.append("btitle", document.querySelector('#btitle').value);
     formData.append("bcontent", document.querySelector('#bcontent').value);
     formData.append("bcno", document.querySelector('#selectbox').value);
-    formData.append("bfile", document.querySelector('#bfile').files[0]);
+
+    const fileInput = document.querySelector('#bfile');
+    if (fileInput.files.length > 0) {
+        formData.append("bfile", fileInput.files[0]);
+    }
 
     $.ajax({
         method: 'POST',

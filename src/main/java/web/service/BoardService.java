@@ -49,12 +49,13 @@ public class BoardService {
         final Long no = (long) loginDto.getNo();
         String filePath = null;
 
-        // 파일 업로드 처리
+        // 파일 업로드 처리 (파일이 있는 경우에만)
         if (bfile != null && !bfile.isEmpty()) {
             try {
                 filePath = fileService.fileUpload(bfile);
             } catch (final IOException e) {
-                log.error("e: ", e);
+                log.error("File upload error: ", e);
+                return false;
             }
         }
 
@@ -76,4 +77,5 @@ public class BoardService {
     public boolean updateBoard(final BoardDto boardDto) {
         return boardDao.updateBoard(boardDto);
     }
+
 }

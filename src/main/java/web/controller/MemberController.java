@@ -1,6 +1,6 @@
 // src\main\java\web\contoller\MemberController.java
 
-package web.contoller;
+package web.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,9 +126,10 @@ public class MemberController {
     }
 
     // 로그인 상태 확인
-    @GetMapping("/member/login/status")
-    public boolean checkLoginStatus(HttpSession session) {
-        MemberDto loginDto = (MemberDto) session.getAttribute("loginDto");
+    @GetMapping("/login/status")
+    public boolean checkLoginStatus(final HttpSession session) {
+        System.out.println("MemberController.checkLoginStatus");
+        final MemberDto loginDto = (MemberDto) session.getAttribute("loginDto");
         return loginDto != null;
     }
 

@@ -1,6 +1,6 @@
 // src\main\java\web\contoller\BoardController.java
 
-package web.contoller;
+package web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +27,7 @@ public class BoardController {
 
     @GetMapping("/category")
     public ArrayList<BoardDto> category() {
+        System.out.println("BoardController.category");
         return boardService.category();
     }
 
@@ -44,7 +45,8 @@ public class BoardController {
     public boolean bWrite(@RequestParam("btitle") final String btitle,
                           @RequestParam("bcontent") final String bcontent,
                           @RequestParam("bcno") final Long bcno,
-                          @RequestParam("bfile") final MultipartFile bfile) {
+                          @RequestParam(value = "bfile", required = false) final MultipartFile bfile) {
+        System.out.println("BoardController.bWrite");
         return boardService.bWrite(btitle, bcontent, bcno, bfile);
     }
 
@@ -55,6 +57,7 @@ public class BoardController {
     // 첨부파일도 보이도록 수정해야 함
     @GetMapping("/detail")
     public Map<String, Object> bDetail(@RequestParam final Long bno) {
+        System.out.println("BoardController.bDetail");
         final HttpSession session = request.getSession();
         String loggedInUserId = null;
 
@@ -75,6 +78,7 @@ public class BoardController {
     // 글 삭제 요청 api (서비스로 넘김)
     @DeleteMapping("/delete")
     public boolean deleteBoard(@RequestBody final Map<String, Long> requestData) {
+        System.out.println("BoardController.deleteBoard");
         final Long bno = requestData.get("bno");
         return boardService.deleteBoard(bno);
     }
@@ -82,6 +86,7 @@ public class BoardController {
     // 글 수정 요청 api (서비스로 넘김)
     @PutMapping("/update")
     public boolean updateBoard(@RequestBody final BoardDto boardDto) {
+        System.out.println("BoardController.updateBoard");
         return boardService.updateBoard(boardDto);
     }
 }

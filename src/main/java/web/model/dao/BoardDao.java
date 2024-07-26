@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import web.model.dto.BoardDto;
 
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,20 +69,23 @@ public class BoardDao extends Dao {
 
 
     // 글쓰기 처리 dao
+    // 글쓰기 처리 dao
     public boolean bWrite(final String btitle, final String bcontent, final Long bcno, final Long no, final String filePath) {
         System.out.println("BoardDao.bWrite");
         try {
-            final String sql = "insert into board(btitle, bcontent, bcno, no, bfile) values(?,?,?,?,?)";
+            final String sql = "INSERT INTO board(btitle, bcontent, bcno, no, bfile) VALUES(?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, btitle);
             ps.setString(2, bcontent);
             ps.setLong(3, bcno);
             ps.setLong(4, no);
-            ps.setString(5, filePath);
+            // 파일 경로에서 파일명만 추출
+            final String fileName = filePath != null ? Paths.get(filePath).getFileName().toString() : null;
+            ps.setString(5, fileName);
             ps.executeUpdate();
             return true;
         } catch (final Exception e) {
-            log.error("e: ", e);
+            log.error("Error in bWrite: ", e);
         }
         return false;
     }
@@ -91,7 +95,12 @@ public class BoardDao extends Dao {
     public BoardDto bDetail(final Long bno) {
         System.out.println("BoardDao.bDetail");
         try {
-            final BoardDto boardDto;
+            conn.setAutoCommit(false);
+            final String updateViewCountSql = "UPDATE board SET bview = bview + 1 WHERE bno = ?";
+            ps = conn.prepareStatement(updateViewCountSql);
+            ps.setLong(1, bno);
+            ps.executeUpdate();
+
             final String sql = "SELECT b.bno, b.btitle, b.bcontent, b.bview, b.bdate, b.no, c.bcname, m.id, b.bfile " +
                     "FROM board b " +
                     "JOIN bcategory c ON b.bcno = c.bcno " +
@@ -100,6 +109,8 @@ public class BoardDao extends Dao {
             ps = conn.prepareStatement(sql);
             ps.setLong(1, bno);
             rs = ps.executeQuery();
+
+            BoardDto boardDto = null;
             if (rs.next()) {
                 boardDto = BoardDto.builder()
                         .bno(rs.getLong("bno"))
@@ -108,12 +119,13 @@ public class BoardDao extends Dao {
                         .bview(rs.getLong("bview"))
                         .bdate(rs.getString("bdate"))
                         .no(rs.getLong("no"))
-                        .bcname(rs.getString("bcname"))  // 카테고리 이름 추가
-                        .id(rs.getString("id"))          // 작성자 ID 추가
-                        .bfile(rs.getString("bfile"))    // 첨부파일 경로 추가
+                        .bcname(rs.getString("bcname"))
+                        .id(rs.getString("id"))
+                        .bfile(rs.getString("bfile"))
                         .build();
-                return boardDto;
             }
+            conn.commit();
+            return boardDto;
         } catch (final Exception e) {
             log.error("e: ", e);
         }

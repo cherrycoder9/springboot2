@@ -10,7 +10,6 @@ function checkLoginStatus() {
     $.ajax({
         method: 'GET',
         url: '/member/login/status',
-        contentType: "application/json",
         success: function (isLoggedIn) {
             if (isLoggedIn) {
                 alert("이미 로그인되어 있습니다.");

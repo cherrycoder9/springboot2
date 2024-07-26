@@ -1,6 +1,6 @@
 // src\main\java\web\contoller\ViewController.java
 
-package web.contoller;
+package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ public class ViewController {
     @GetMapping("/member/login")
     public String mLogin() {
         System.out.println("ViewController.mLogin");
-        return "/member/login.html"; // 템플릿 폴더내 반환할 경로와 파일명
+        return "/member/login"; // 템플릿 폴더내 반환할 경로와 파일명
     }
 
     // 아이디 찾기 page return (HTML)
