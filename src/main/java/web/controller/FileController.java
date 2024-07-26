@@ -25,13 +25,14 @@ public class FileController {
     @GetMapping("/{filename:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable final String filename) {
         try {
+            // 클라이언트가 요청한 파일명을 이용해 실제 파일 시스템 경로를 구성
             final Path filePath = Paths.get(UPLOAD_DIR + filename);
             final Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists() && resource.isReadable()) {
-                // 파일명을 안전하게 인코딩
+                // 파일명을 인코딩하여 Content-Disposition 헤더에 설정
                 final String encodedFilename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
-                final String contentDisposition = "attachment;filename=\"" + encodedFilename + "\"";
+                final String contentDisposition = "attachment; filename=\"" + encodedFilename + "\"";
 
                 final HttpHeaders headers = new HttpHeaders();
                 headers.add(HttpHeaders.CONTENT_DISPOSITION, contentDisposition);
